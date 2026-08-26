@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hathmus — Documentary research</title>
+<meta name="description" content="Long-form documentary research on cartography, polar mythology, hermeticism, and lost geographical knowledge.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Karla:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plate:#111d1f;
+  --plate-up:#182a2c;
+  --plate-edge:#25403f;
+  --verdigris:#5aa494;
+  --parchment:#e9dfc9;
+  --parchment-dim:#a99e88;
+  --rubric:#b8482f;
+  --measure:68ch;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+body{
+  background:var(--plate);
+  color:var(--parchment);
+  font-family:'Karla',system-ui,sans-serif;
+  font-weight:300;
+  font-size:17px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* engraved graticule — the latitude/longitude grid of a sea chart */
+body::before{
+  content:"";
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    repeating-linear-gradient(to right,transparent 0 79px,rgba(90,164,148,.055) 79px 80px),
+    repeating-linear-gradient(to bottom,transparent 0 79px,rgba(90,164,148,.055) 79px 80px);
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 10%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 10%,transparent 75%);
+}
+
+.wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:0 28px}
+
+/* ---- shared type devices ---- */
+.label{
+  font-family:'EB Garamond',serif;
+  font-variant:small-caps;
+  letter-spacing:.22em;
+  font-size:.78rem;
+  color:var(--verdigris);
+  text-transform:lowercase;
+}
+.rule{border:0;border-top:1px solid var(--plate-edge);margin:0}
+
+/* ---- masthead ---- */
+header{padding:16vh 0 11vh;text-align:center}
+.cartouche{
+  display:inline-block;
+  border:1px solid var(--plate-edge);
+  padding:34px 52px 30px;
+  position:relative;
+  animation:settle 1.1s ease-out both;
+}
+.cartouche::before,.cartouche::after{
+  content:"";position:absolute;width:9px;height:9px;
+  border:1px solid var(--verdigris);opacity:.65;transform:rotate(45deg);
+}
+.cartouche::before{top:-5px;left:-5px}
+.cartouche::after{bottom:-5px;right:-5px}
+h1{
+  font-family:'EB Garamond',serif;
+  font-weight:500;
+  font-size:clamp(2.9rem,9vw,4.6rem);
+  letter-spacing:.14em;
+  line-height:1;
+  text-indent:.14em;
+}
+.tagline{
+  font-family:'EB Garamond',serif;
+  font-style:italic;
+  font-size:clamp(1rem,2.4vw,1.2rem);
+  color:var(--parchment-dim);
+  margin-top:14px;
+}
+.standfirst{
+  max-width:52ch;margin:38px auto 0;
+  color:var(--parchment-dim);font-size:1.02rem;
+  animation:settle 1.1s .25s ease-out both;
+}
+@keyframes settle{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ---- sections ---- */
+section{padding:74px 0}
+.sec-head{display:flex;align-items:baseline;gap:20px;margin-bottom:44px}
+.sec-head .rule{flex:1}
+
+/* ---- work entries ---- */
+.work{
+  display:grid;grid-template-columns:76px 1fr;gap:0 26px;
+  padding:34px 0;border-top:1px solid var(--plate-edge);
+}
+.work:last-of-type{border-bottom:1px solid var(--plate-edge)}
+.marg{
+  font-family:'EB Garamond',serif;font-style:italic;
+  font-size:.86rem;color:var(--parchment-dim);
+  text-align:right;padding-top:.5rem;line-height:1.45;
+}
+.marg .state{display:block;color:var(--verdigris);font-style:normal;
+  font-variant:small-caps;letter-spacing:.12em;font-size:.76rem;margin-top:5px}
+h2{
+  font-family:'EB Garamond',serif;font-weight:500;
+  font-size:clamp(1.55rem,4vw,2.05rem);line-height:1.2;letter-spacing:.01em;
+}
+.work p{margin-top:12px;max-width:var(--measure);color:var(--parchment-dim)}
+.work .drop{color:var(--parchment)}
+.meta{margin-top:16px;font-size:.85rem;letter-spacing:.04em;color:var(--parchment-dim)}
+.meta a{color:var(--verdigris);text-decoration:none;border-bottom:1px solid transparent;
+  padding-bottom:1px;transition:border-color .25s}
+.meta a:hover,.meta a:focus-visible{border-bottom-color:var(--verdigris)}
+
+/* ---- method ---- */
+.method{background:var(--plate-up);border:1px solid var(--plate-edge);padding:44px 46px}
+.method p{max-width:var(--measure);color:var(--parchment-dim);margin-top:16px}
+.method p:first-of-type{margin-top:22px}
+.method .lede{color:var(--parchment);font-family:'EB Garamond',serif;
+  font-size:1.28rem;font-style:italic;line-height:1.55}
+.rubric{color:var(--rubric)}
+
+/* ---- links ---- */
+.links{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.links a{
+  font-family:'EB Garamond',serif;font-variant:small-caps;letter-spacing:.16em;
+  font-size:.92rem;color:var(--parchment);text-decoration:none;
+  border:1px solid var(--plate-edge);padding:11px 22px;
+  transition:border-color .25s,color .25s,background-color .25s;
+}
+.links a:hover,.links a:focus-visible{border-color:var(--verdigris);color:var(--verdigris);background:var(--plate-up)}
+
+footer{padding:64px 0 80px;text-align:center;color:var(--parchment-dim);font-size:.82rem;letter-spacing:.06em}
+footer .n{font-family:'EB Garamond',serif;font-style:italic}
+
+:focus-visible{outline:2px solid var(--verdigris);outline-offset:3px}
+
+@media(max-width:640px){
+  body{font-size:16px}
+  .cartouche{padding:26px 28px 24px}
+  section{padding:56px 0}
+  .work{grid-template-columns:1fr;gap:0}
+  .marg{text-align:left;padding-top:0;margin-bottom:10px}
+  .marg .state{display:inline;margin-left:12px}
+  .method{padding:32px 26px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="cartouche">
+      <h1>HATHMUS</h1>
+      <div class="tagline">documentary research</div>
+    </div>
+    <p class="standfirst">Long-form films on cartography, polar mythology, hermeticism, and the knowledge that fell out of the record.</p>
+  </div>
+</header>
+
+<main>
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head"><span class="label">the films</span><hr class="rule"></div>
+
+    <article class="work">
+      <div class="marg">2026<span class="state">in assembly</span></div>
+      <div>
+        <h2>Northern Legends</h2>
+        <p><span class="drop">Eighteen chapters on Arctic cartography and the maps that recorded a north nobody could reach.</span> Waldseemüller's 1507 inscriptions translated from the Latin. Mercator's clockwise warning. The Moskenesstraumen as it passed through Olaus Magnus, Schønnebøl, Petter Dass and Pontoppidan, each of them certain and each of them different.</p>
+        <div class="meta"><a href="#">Watch on YouTube</a> &nbsp;·&nbsp; <a href="#">Sources</a></div>
+      </div>
+    </article>
+
+    <article class="work">
+      <div class="marg">2025<span class="state">complete</span></div>
+      <div>
+        <h2>Dance of the Sun</h2>
+        <p><span class="drop">One line about what this film is.</span> Replace this paragraph with your own description — two or three sentences, same shape as the one above.</p>
+        <div class="meta"><a href="#">Watch on YouTube</a></div>
+      </div>
+    </article>
+
+    <article class="work">
+      <div class="marg">2024 · 2026<span class="state">remastering</span></div>
+      <div>
+        <h2>Alice in Wonderland Syndrome</h2>
+        <p><span class="drop">A condition in which time, scale and sensation stop behaving.</span> The medical vocabulary traced back through Blom, Farooq and Fine, and Shammas; the community accounts of people told for years that it was anxiety; and three restored silent Alice films from 1903 and 1915 appended at the close.</p>
+        <div class="meta"><a href="#">Watch on YouTube</a> &nbsp;·&nbsp; <a href="#">Sources</a></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="method">
+  <div class="wrap">
+    <div class="sec-head"><span class="label">method</span><hr class="rule"></div>
+    <div class="method">
+      <p class="lede">Everything here is triple-sourced, and the sources are published alongside the film.</p>
+      <p>Claims are traced to primary material wherever primary material survives. Translations are made from the original language and marked as translations. Where a source is a summary rather than a direct quotation, the narration says so out loud.</p>
+      <p>Corrections are kept, not quietly removed. If a map is misattributed, a name collides with another name, or a date is wrong, that <span class="rubric">correction stays on the record</span> — because how the error happened is usually part of the story.</p>
+    </div>
+  </div>
+</section>
+
+<section id="elsewhere">
+  <div class="wrap">
+    <div class="sec-head"><span class="label">elsewhere</span><hr class="rule"></div>
+    <div class="links">
+      <a href="#">YouTube</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap"><span class="n">Hathmus</span> · hathmus.com · MMXXVI</div>
+</footer>
+
+</body>
+</html>
