@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hathmus — Three Men Who Fixed the Record</title>
+<meta name="description" content="An experiment: three portraits, three darts apiece, and what each hit tells you.">
+<link rel="icon" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Karla:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --deep:#0a1310;
+  --deep-2:#0e1a16;
+  --glass:rgba(180,220,200,.055);
+  --glass-2:rgba(180,220,200,.09);
+  --edge:rgba(160,215,190,.17);
+  --edge-lit:rgba(190,235,215,.42);
+  --moss:#7cc0a1;
+  --moss-deep:#3d6b57;
+  --linen:#e7e4d6;
+  --linen-dim:#9fac9f;
+  --rubric:#c25a3c;
+  --measure:66ch;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+
+body{
+  background:var(--deep);
+  color:var(--linen);
+  font-family:'Karla',system-ui,sans-serif;
+  font-weight:300;font-size:17px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% -5%, rgba(124,192,161,.13), transparent 70%),
+    radial-gradient(ellipse 55% 40% at 88% 22%, rgba(90,150,190,.07), transparent 70%),
+    linear-gradient(var(--deep),var(--deep-2));
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    repeating-linear-gradient(to right,transparent 0 219px,rgba(160,215,190,.045) 219px 221px),
+    repeating-linear-gradient(to bottom,transparent 0 259px,rgba(160,215,190,.035) 259px 261px);
+  mask-image:linear-gradient(#000,rgba(0,0,0,.25) 60%,transparent);
+  -webkit-mask-image:linear-gradient(#000,rgba(0,0,0,.25) 60%,transparent);
+}
+.wrap{position:relative;z-index:2;max-width:1060px;margin:0 auto;padding:0 26px}
+
+.label{font-family:'EB Garamond',serif;font-variant:small-caps;
+  letter-spacing:.24em;font-size:.8rem;color:var(--moss);text-transform:lowercase}
+.rule{border:0;border-top:1px solid var(--edge);margin:0}
+.pane{position:relative;background:var(--glass);border:1px solid var(--edge);
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  box-shadow:inset 0 1px 0 var(--edge-lit), 0 20px 50px -30px rgba(0,0,0,.9)}
+
+header{position:relative;padding:11vh 0 4vh;text-align:center}
+.back{font-family:'EB Garamond',serif;font-variant:small-caps;letter-spacing:.2em;
+  font-size:.8rem;color:var(--linen-dim);text-decoration:none;border-bottom:1px solid var(--edge)}
+.back:hover,.back:focus-visible{color:var(--moss);border-color:var(--moss)}
+h1{font-family:'EB Garamond',serif;font-weight:500;
+  font-size:clamp(2rem,5.6vw,3.2rem);letter-spacing:.04em;line-height:1.08;margin-top:26px}
+.standfirst{max-width:58ch;margin:20px auto 0;color:var(--linen-dim);font-size:1.02rem}
+.howto{margin:26px auto 0;max-width:46ch;font-family:'EB Garamond',serif;font-style:italic;
+  color:var(--linen-dim);font-size:1.02rem}
+
+section{position:relative;padding:40px 0 78px}
+.sec-head{display:flex;align-items:baseline;gap:20px;margin-bottom:34px}
+.sec-head .rule{flex:1}
+
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start}
+
+.target{padding:14px}
+.portrait{
+  position:relative;display:block;width:100%;padding:0;border:1px solid var(--edge);
+  background:#0c1512;overflow:hidden;cursor:crosshair;line-height:0;
+  font:inherit;color:inherit;-webkit-tap-highlight-color:transparent;
+}
+.portrait img{width:100%;height:100%;display:block;aspect-ratio:3/4;object-fit:cover;object-position:50% 22%;
+  filter:saturate(.82) contrast(1.02) brightness(.92);transition:filter .6s}
+.portrait:hover img,.portrait:focus-visible img{filter:saturate(.95) contrast(1.04) brightness(1)}
+.portrait .fog{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 18% 24%,rgba(255,255,255,.34) 0 1.4px,transparent 2.6px),
+    radial-gradient(circle at 62% 16%,rgba(255,255,255,.3) 0 1.2px,transparent 2.2px),
+    radial-gradient(circle at 81% 52%,rgba(255,255,255,.22) 0 2.4px,transparent 3.8px),
+    radial-gradient(circle at 26% 75%,rgba(255,255,255,.26) 0 1.9px,transparent 3.2px),
+    linear-gradient(150deg,rgba(190,230,210,.09),rgba(120,170,150,.04));
+  transition:opacity .8s}
+.portrait.spent .fog{opacity:.25}
+
+.rings{position:absolute;inset:0;pointer-events:none;opacity:.22}
+.rings circle{fill:none;stroke:var(--moss);stroke-width:1}
+
+.dart{position:absolute;width:30px;height:30px;transform:translate(-14%,-86%);
+  pointer-events:none;animation:land .3s cubic-bezier(.2,.8,.3,1) both}
+@keyframes land{
+  from{opacity:0;transform:translate(-14%,-86%) translate(26px,-46px) scale(1.9)}
+  to{opacity:1;transform:translate(-14%,-86%) translate(0,0) scale(1)}
+}
+
+.nameplate{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:13px}
+h2{font-family:'EB Garamond',serif;font-weight:500;font-size:1.22rem;line-height:1.2}
+.count{font-family:'EB Garamond',serif;font-variant:small-caps;letter-spacing:.16em;
+  font-size:.72rem;color:var(--moss);white-space:nowrap}
+.dates{font-family:'EB Garamond',serif;font-style:italic;color:var(--linen-dim);
+  font-size:.88rem;margin-top:1px}
+
+.reveals{margin-top:12px;display:flex;flex-direction:column;gap:12px}
+.tier{border-top:1px solid var(--edge);padding-top:10px;animation:surface .5s ease both}
+@keyframes surface{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.tier .n{font-family:'EB Garamond',serif;font-variant:small-caps;letter-spacing:.18em;
+  font-size:.68rem;color:var(--moss)}
+.tier p{font-size:.9rem;color:var(--linen-dim);margin-top:4px}
+.tier .status{display:block;margin-top:6px;font-size:.74rem;letter-spacing:.02em;color:var(--moss-deep)}
+.tier .status.mixed{color:var(--rubric)}
+.tier .src{color:var(--moss);text-decoration:none;border-bottom:1px solid var(--edge)}
+.tier .src:hover,.tier .src:focus-visible{border-color:var(--moss)}
+.hint{margin-top:12px;font-family:'EB Garamond',serif;font-style:italic;
+  color:var(--linen-dim);font-size:.88rem;opacity:.75}
+
+.note{margin-top:54px;padding:30px 34px}
+.note p{max-width:var(--measure);color:var(--linen-dim);font-size:.95rem;margin-top:12px}
+.note p:first-child{margin-top:0}
+.note .lede{color:var(--linen);font-family:'EB Garamond',serif;font-size:1.18rem;
+  font-style:italic;line-height:1.5}
+
+footer{position:relative;z-index:2;padding:50px 0 80px;text-align:center;
+  color:var(--linen-dim);font-size:.82rem;letter-spacing:.06em}
+footer .n{font-family:'EB Garamond',serif;font-style:italic}
+:focus-visible{outline:2px solid var(--moss);outline-offset:3px}
+
+@media(max-width:900px){
+  .board{grid-template-columns:1fr;gap:18px}
+  .target{max-width:520px;margin:0 auto;width:100%}
+}
+@media(max-width:640px){
+  body{font-size:16px}
+  header{padding:8vh 0 3vh}
+  .note{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="back" href="/">back to hathmus</a>
+    <h1>Three Men Who Fixed the Record</h1>
+    <p class="standfirst">A chronologist, a physician and a librarian. Between them they decided what year it was, where north was, and which old documents were real.</p>
+    <p class="howto">Throw a dart at a man. Each hit tells you more about him. Four hits and he has nothing left to give.</p>
+  </div>
+</header>
+
+<main>
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="label">the board</span><hr class="rule"></div>
+    <div class="board" id="board"></div>
+
+    <div class="note pane">
+      <p class="lede">Every panel is marked for what it is.</p>
+      <p>Where a line is documented, it says so, and the source is linked. Where the reading is mine, it says that too, in a different colour, and names which part of the panel is argument rather than record. Nothing here asks you to take the connection on trust — the dates and the quotations stand on their own, and you can disagree with what I make of them.</p>
+      <p>This page is an experiment. If it works it will grow.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap"><span class="n">Hathmus</span> · hathmus.com · MMXXVI</div>
+</footer>
+
+<script>
+const FIGURES = [
+  {
+    id:"scaliger", name:"Joseph Justus Scaliger", dates:"1540–1609", img:"darts/scaliger.jpg",
+    tiers:[
+      {n:"first hit", t:"Joseph Justus Scaliger, 1540–1609, at Leiden from 1593, holding a chair with no obligation to lecture.", s:"Documented."},
+      {n:"second hit", t:"He turned chronology into a technical discipline, insisting ancient history be cross-checked against Persian, Babylonian, Egyptian and Jewish records rather than read from Greek and Roman sources alone. Every later timeline was fitted into his frame.", s:"Documented."},
+      {n:"third hit", t:"De emendatione temporum (1583) and Thesaurus temporum (1606), the second reconstructing the lost Chronicle of Eusebius. He proposed the Julian Period, still used to number days in astronomy.", s:"Documented.", u:"https://en.wikipedia.org/wiki/Joseph_Justus_Scaliger"},
+      {n:"fourth hit", t:"Isaac Newton spent decades writing against it. The Chronology of Ancient Kingdoms Amended — roughly 87,000 words, revised until his death, published posthumously in 1728 — argues the accepted dates for Greek, Egyptian and Assyrian history were inflated by historians who wanted their civilisations to look older than they were. The timeline became the frame, and the frame stopped being examined.", s:"Documented: the work, its length, its argument. Mine: that it is filed as eccentricity rather than as argument.", mixed:true}
+    ]
+  },
+  {
+    id:"gilbert", name:"William Gilbert", dates:"1544–1603", img:"darts/gilbert.jpg",
+    tiers:[
+      {n:"first hit", t:"William Gilbert, 1544–1603, physician to Elizabeth I, who funded his research by annual pension, and President of the College of Physicians in 1600.", s:"Documented."},
+      {n:"second hit", t:"De Magnete (1600) made the Earth itself the magnet, and in doing so replaced the magnetic mountain with a magnetised globe. The polar lodestone stopped being a place and became a property.", s:"Documented."},
+      {n:"third hit", t:"Book IV makes the older north structurally impossible. Chapter II builds the terrella, showing compass variation comes from uneven landmasses; Chapter V finds islands have no effect at all, their virtue reaching “scarcely or not at all beyond their own mines.”", s:"Documented.", u:"https://archive.org/details/williamgilbertof00gilb"},
+      {n:"fourth hit", t:"He did not disprove the northern tradition. He refused to look at it. Gilbert works through centuries of accumulated geography — Fracastoro’s Hyperborean magnetick mountains named outright, Olaus Magnus on ships built without iron nails, the whole celestial north — and disposes of all of it as the tales of men who “wander about blindly.” Then he makes the return impossible: “There are poles in like manner in the earth, which our forefathers sought ever in the sky.” Within a century the four islands are gone from the maps.", s:"Documented: the quotations, the writers he dismisses, the disappearance from later maps. Mine: the causal line between them.", mixed:true}
+    ]
+  },
+  {
+    id:"bentley", name:"Richard Bentley", dates:"1662–1742", img:"darts/bentley.jpg",
+    tiers:[
+      {n:"first hit", t:"Richard Bentley, 1662–1742, Royal Librarian from 1693, Master of Trinity College Cambridge from 1700 until his death.", s:"Documented."},
+      {n:"second hit", t:"He established that a document’s own language can expose it as a forgery, and he decided which ancient texts were authentic. He was also the first Boyle Lecturer, in 1692, where he presented Newton’s physics as proof of an intelligent Creator.", s:"Documented."},
+      {n:"third hit", t:"The Dissertation upon the Epistles of Phalaris (1699) showed that letters credited to a 6th-century BC tyrant were written by a sophist of the 2nd century AD. Preparing that Boyle series he wrote to Newton, who replied that gravity acting at a distance through a vacuum was “so great an absurdity that I beleive no man who has in philosophical matters any competent faculty of thinking can ever fall into it.”", s:"Documented.", u:"https://newtonproject.ox.ac.uk/view/texts/xml/THEM00258"},
+      {n:"fourth hit", t:"Newton wrote more on alchemy than on physics, over a million words, and Keynes, who bought the private papers at auction in 1936, called him the last of the magicians. He told Bentley plainly that matter could not act on matter without “the mediation of something else which is not material.” Bentley went on to run the second edition of the Principia in 1713, where Roger Cotes’s preface asserts the exact doctrine Newton had rejected — gravity as an essential property of matter. The man who could expose a forgery from its vocabulary let that one through.", s:"Documented: the letters, the alchemical papers, the Keynes line, Bentley running the second edition, Cotes’s preface and its claim. Mine: what it adds up to.", mixed:true}
+    ]
+  }
+];
+
+const DART = '<svg class="dart" viewBox="0 0 40 40" aria-hidden="true">'
+  + '<line x1="6" y1="34" x2="30" y2="10" stroke="#e7e4d6" stroke-width="2.1" stroke-linecap="round"/>'
+  + '<circle cx="5" cy="35" r="2.1" fill="#7cc0a1"/>'
+  + '<path d="M30 10 L38 3 L33 14 Z" fill="#c25a3c"/>'
+  + '<path d="M30 10 L36 16 L25 15 Z" fill="#c25a3c" opacity=".8"/>'
+  + '</svg>';
+
+const board = document.getElementById("board");
+const state = {};
+
+FIGURES.forEach(f => {
+  state[f.id] = 0;
+  const card = document.createElement("article");
+  card.className = "target pane";
+  card.innerHTML =
+    '<button class="portrait" id="p-' + f.id + '" aria-describedby="r-' + f.id + '">'
+    + '<img src="' + f.img + '" alt="Portrait of ' + f.name + '">'
+    + '<span class="fog"></span>'
+    + '<svg class="rings" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">'
+    + '<circle cx="50" cy="38" r="26"/><circle cx="50" cy="38" r="16"/><circle cx="50" cy="38" r="7"/>'
+    + '</svg></button>'
+    + '<div class="nameplate"><h2>' + f.name + '</h2><span class="count" id="c-' + f.id + '">0 of 4</span></div>'
+    + '<div class="dates">' + f.dates + '</div>'
+    + '<div class="reveals" id="r-' + f.id + '" role="status" aria-live="polite"></div>'
+    + '<p class="hint" id="h-' + f.id + '">Throw a dart.</p>';
+  board.appendChild(card);
+
+  const btn = card.querySelector(".portrait");
+  btn.addEventListener("click", ev => {
+    const r = btn.getBoundingClientRect();
+    let x, y;
+    if (ev.clientX === 0 && ev.clientY === 0) {        // keyboard activation
+      x = r.width * (0.36 + Math.random() * 0.28);
+      y = r.height * (0.24 + Math.random() * 0.28);
+    } else {
+      x = ev.clientX - r.left;
+      y = ev.clientY - r.top;
+    }
+    throwDart(f, btn, x, y);
+  });
+});
+
+function throwDart(f, btn, x, y){
+  if (state[f.id] >= f.tiers.length) return;
+  const holder = document.createElement("span");
+  holder.innerHTML = DART;
+  const dart = holder.firstChild;
+  dart.style.left = x + "px";
+  dart.style.top = y + "px";
+  btn.appendChild(dart);
+
+  const tier = f.tiers[state[f.id]];
+  state[f.id] += 1;
+
+  const box = document.createElement("div");
+  box.className = "tier";
+  box.innerHTML = '<span class="n">' + tier.n + '</span><p>' + tier.t
+    + '<span class="status' + (tier.mixed ? ' mixed' : '') + '">' + tier.s
+    + (tier.u ? ' <a class="src" href="' + tier.u + '" target="_blank" rel="noopener">source</a>' : '')
+    + '</span></p>';
+  document.getElementById("r-" + f.id).appendChild(box);
+
+  document.getElementById("c-" + f.id).textContent = state[f.id] + " of " + f.tiers.length;
+
+  const hint = document.getElementById("h-" + f.id);
+  if (state[f.id] >= f.tiers.length) {
+    btn.classList.add("spent");
+    btn.style.cursor = "default";
+    hint.textContent = "Nothing left in him.";
+  } else {
+    hint.textContent = "Throw again.";
+  }
+}
+</script>
+</body>
+</html>
