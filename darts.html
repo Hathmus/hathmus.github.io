@@ -110,6 +110,28 @@ section{position:relative;padding:40px 0 78px}
   to{opacity:1;transform:translate(-14%,-86%) translate(0,0) scale(1)}
 }
 
+.flash{
+  position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;
+  justify-content:center;gap:7px;padding:18px 18px;pointer-events:none;
+  background:linear-gradient(rgba(6,14,11,.86),rgba(6,14,11,.94));
+  backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
+  text-align:left;animation:flash-in .42s cubic-bezier(.2,.8,.3,1) both;
+  overflow:hidden;
+}
+.flash .n{font-family:'EB Garamond',serif;font-variant:small-caps;letter-spacing:.18em;
+  font-size:.68rem;color:var(--moss)}
+.flash p{font-size:.85rem;line-height:1.5;color:var(--linen);margin:0;
+  max-height:100%;overflow:hidden}
+.flash.away{animation:flash-drop .62s cubic-bezier(.5,0,.75,0) both}
+@keyframes flash-in{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:none}}
+@keyframes flash-drop{
+  0%{opacity:1;transform:none}
+  100%{opacity:0;transform:translateY(42%) scale(.94)}
+}
+@media (prefers-reduced-motion:reduce){
+  .flash,.flash.away{animation:none}
+}
+
 .nameplate{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:13px}
 h2{font-family:'EB Garamond',serif;font-weight:500;font-size:1.22rem;line-height:1.2}
 .count{font-family:'EB Garamond',serif;font-variant:small-caps;letter-spacing:.16em;
@@ -118,8 +140,10 @@ h2{font-family:'EB Garamond',serif;font-weight:500;font-size:1.22rem;line-height
   font-size:.88rem;margin-top:1px}
 
 .reveals{margin-top:12px;display:flex;flex-direction:column;gap:12px}
-.tier{border-top:1px solid var(--edge);padding-top:10px;animation:surface .5s ease both}
-@keyframes surface{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.tier{border-top:1px solid var(--edge);padding-top:10px;animation:surface .55s ease both}
+@keyframes surface{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+.count.bump{animation:bump .5s ease both}
+@keyframes bump{0%{color:var(--linen);transform:scale(1.18)}100%{color:var(--moss);transform:none}}
 .tier .n{font-family:'EB Garamond',serif;font-variant:small-caps;letter-spacing:.18em;
   font-size:.68rem;color:var(--moss)}
 .tier p{font-size:.9rem;color:var(--linen-dim);margin-top:4px}
@@ -222,6 +246,7 @@ const DART = '<svg class="dart" viewBox="0 0 40 40" aria-hidden="true">'
 
 const board = document.getElementById("board");
 const state = {};
+const pending = {};
 
 FIGURES.forEach(f => {
   state[f.id] = 0;
@@ -237,7 +262,7 @@ FIGURES.forEach(f => {
     + '<div class="nameplate"><h2>' + f.name + '</h2><span class="count" id="c-' + f.id + '">0 of 4</span></div>'
     + '<div class="dates">' + f.dates + '</div>'
     + '<div class="reveals" id="r-' + f.id + '" role="status" aria-live="polite"></div>'
-    + '<p class="hint" id="h-' + f.id + '">Throw a dart.</p>';
+    + '<p class="hint" id="h-' + f.id + '">Throw a dart. What he gives up collects below.</p>';
   board.appendChild(card);
 
   const btn = card.querySelector(".portrait");
@@ -267,24 +292,56 @@ function throwDart(f, btn, x, y){
   const tier = f.tiers[state[f.id]];
   state[f.id] += 1;
 
-  const box = document.createElement("div");
-  box.className = "tier";
-  box.innerHTML = '<span class="n">' + tier.n + '</span><p>' + tier.t
-    + '<span class="status' + (tier.mixed ? ' mixed' : '') + '">' + tier.s
-    + (tier.u ? ' <a class="src" href="' + tier.u + '" target="_blank" rel="noopener">source</a>' : '')
-    + '</span></p>';
-  document.getElementById("r-" + f.id).appendChild(box);
+  flush(f.id);                                  // settle any panel still in the air
 
-  document.getElementById("c-" + f.id).textContent = state[f.id] + " of " + f.tiers.length;
+  const flash = document.createElement("div");
+  flash.className = "flash";
+  flash.innerHTML = '<span class="n">' + tier.n + '</span><p>' + tier.t + '</p>';
+  btn.appendChild(flash);
+
+  pending[f.id] = {
+    el: flash,
+    settle: () => {
+      const box = document.createElement("div");
+      box.className = "tier";
+      box.innerHTML = '<span class="n">' + tier.n + '</span><p>' + tier.t
+        + '<span class="status' + (tier.mixed ? ' mixed' : '') + '">' + tier.s
+        + (tier.u ? ' <a class="src" href="' + tier.u + '" target="_blank" rel="noopener">source</a>' : '')
+        + '</span></p>';
+      document.getElementById("r-" + f.id).appendChild(box);
+      const c = document.getElementById("c-" + f.id);
+      c.textContent = state[f.id] + " of " + f.tiers.length;
+      c.classList.remove("bump");
+      void c.offsetWidth;
+      c.classList.add("bump");
+    }
+  };
+
+  pending[f.id].timer = setTimeout(() => {
+    const p = pending[f.id];
+    if (!p) return;
+    p.el.classList.add("away");
+    p.el.addEventListener("animationend", () => flush(f.id), { once: true });
+    setTimeout(() => flush(f.id), 800);          // fallback if the animation is suppressed
+  }, 2600);
 
   const hint = document.getElementById("h-" + f.id);
   if (state[f.id] >= f.tiers.length) {
     btn.classList.add("spent");
     btn.style.cursor = "default";
-    hint.textContent = "Nothing left in him.";
+    hint.textContent = "Nothing left in him. It is all written below.";
   } else {
-    hint.textContent = "Throw again.";
+    hint.textContent = "Throw again. What you have so far is below.";
   }
+}
+
+function flush(id){
+  const p = pending[id];
+  if (!p) return;
+  pending[id] = null;
+  clearTimeout(p.timer);
+  p.settle();
+  if (p.el.parentNode) p.el.parentNode.removeChild(p.el);
 }
 </script>
 </body>
