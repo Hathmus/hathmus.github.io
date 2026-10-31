@@ -136,6 +136,19 @@ h1{
 }
 @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 
+/* ---------- masthead nav ---------- */
+.nav{display:flex;flex-wrap:wrap;justify-content:center;gap:0;margin-top:34px;
+  animation:rise 1.2s .45s cubic-bezier(.2,.7,.3,1) both}
+.nav a{
+  font-family:'EB Garamond',serif;font-variant:small-caps;letter-spacing:.2em;
+  font-size:.82rem;color:var(--linen-dim);text-decoration:none;
+  padding:8px 20px;border:1px solid var(--edge);border-right-width:0;
+  background:var(--glass);
+  transition:color .3s,background-color .3s,border-color .3s}
+.nav a:last-child{border-right-width:1px}
+.nav a:hover,.nav a:focus-visible{color:var(--linen);background:var(--glass-2);border-color:var(--edge-lit)}
+.nav a.away{color:var(--moss)}
+
 /* ---------- sections ---------- */
 section{position:relative;padding:78px 0}
 .sec-head{display:flex;align-items:baseline;gap:20px;margin-bottom:42px}
@@ -296,6 +309,12 @@ footer .n{font-family:'EB Garamond',serif;font-style:italic}
       <div class="tagline">documentary research</div>
     </div>
     <p class="standfirst">Long-form films on cartography, polar mythology, hermeticism, and the knowledge that fell out of the record.</p>
+    <nav class="nav">
+      <a href="#films">the films</a>
+      <a href="#method">method</a>
+      <a class="away" href="darts.html">the board</a>
+      <a href="#elsewhere">elsewhere</a>
+    </nav>
   </div>
 </header>
 
