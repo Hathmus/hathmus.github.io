@@ -151,6 +151,17 @@ h2{font-family:'EB Garamond',serif;font-weight:500;font-size:1.22rem;line-height
 .tier .status.mixed{color:var(--rubric)}
 .tier .src{color:var(--moss);text-decoration:none;border-bottom:1px solid var(--edge)}
 .tier .src:hover,.tier .src:focus-visible{border-color:var(--moss)}
+.plates{display:flex;gap:8px;margin-top:11px}
+.plates a{flex:1;min-width:0;display:block;line-height:0;border:1px solid var(--edge);
+  background:#0c1512;overflow:hidden;transition:border-color .3s}
+.plates a:hover,.plates a:focus-visible{border-color:var(--moss)}
+.plates img{width:100%;height:132px;object-fit:contain;display:block;
+  filter:saturate(.9) brightness(.94);transition:filter .5s}
+.plates a:hover img{filter:saturate(1) brightness(1)}
+.plates.one img{height:208px}
+.plate-cap{display:block;margin-top:6px;font-family:'EB Garamond',serif;font-style:italic;
+  font-size:.76rem;color:var(--linen-dim);line-height:1.45}
+
 .hint{margin-top:12px;font-family:'EB Garamond',serif;font-style:italic;
   color:var(--linen-dim);font-size:.88rem;opacity:.75}
 
@@ -214,7 +225,7 @@ const FIGURES = [
       {n:"first hit", t:"Joseph Justus Scaliger, 1540–1609, at Leiden from 1593, holding a chair with no obligation to lecture.", s:"Documented."},
       {n:"second hit", t:"He turned chronology into a technical discipline, insisting ancient history be cross-checked against Persian, Babylonian, Egyptian and Jewish records rather than read from Greek and Roman sources alone. Every later timeline was fitted into his frame.", s:"Documented."},
       {n:"third hit", t:"De emendatione temporum (1583) and Thesaurus temporum (1606), the second reconstructing the lost Chronicle of Eusebius. He proposed the Julian Period, still used to number days in astronomy.", s:"Documented.", u:"https://en.wikipedia.org/wiki/Joseph_Justus_Scaliger"},
-      {n:"fourth hit", t:"Isaac Newton spent decades writing against it. The Chronology of Ancient Kingdoms Amended — roughly 87,000 words, revised until his death, published posthumously in 1728 — argues the accepted dates for Greek, Egyptian and Assyrian history were inflated by historians who wanted their civilisations to look older than they were. The timeline became the frame, and the frame stopped being examined.", s:"Documented: the work, its length, its argument. Mine: that it is filed as eccentricity rather than as argument.", mixed:true}
+      {n:"fourth hit", t:"Isaac Newton spent decades writing against it. The Chronology of Ancient Kingdoms Amended — roughly 87,000 words, revised until his death, published posthumously in 1728 — argues the accepted dates for Greek, Egyptian and Assyrian history were inflated by historians who wanted their civilisations to look older than they were. The timeline became the frame, and the frame stopped being examined.", s:"Documented: the work, its length, its argument. My take: that the timeline stopped being questioned.", mixed:true, plates:[{f:"darts/plates/chronology.jpg",c:"Newton, The Chronology of Ancient Kingdoms Amended, London, 1728."}]}
     ]
   },
   {
@@ -223,7 +234,7 @@ const FIGURES = [
       {n:"first hit", t:"William Gilbert, 1544–1603, physician to Elizabeth I, who funded his research by annual pension, and President of the College of Physicians in 1600.", s:"Documented."},
       {n:"second hit", t:"De Magnete (1600) made the Earth itself the magnet, and in doing so replaced the magnetic mountain with a magnetised globe. The polar lodestone stopped being a place and became a property.", s:"Documented."},
       {n:"third hit", t:"Book IV makes the older north structurally impossible. Chapter II builds the terrella, showing compass variation comes from uneven landmasses; Chapter V finds islands have no effect at all, their virtue reaching “scarcely or not at all beyond their own mines.”", s:"Documented.", u:"https://archive.org/details/williamgilbertof00gilb"},
-      {n:"fourth hit", t:"He did not disprove the northern tradition. He refused to look at it. Gilbert works through centuries of accumulated geography — Fracastoro’s Hyperborean magnetick mountains named outright, Olaus Magnus on ships built without iron nails, the whole celestial north — and disposes of all of it as the tales of men who “wander about blindly.” Then he makes the return impossible: “There are poles in like manner in the earth, which our forefathers sought ever in the sky.” Within a century the four islands are gone from the maps.", s:"Documented: the quotations, the writers he dismisses, the disappearance from later maps. Mine: the causal line between them.", mixed:true}
+      {n:"fourth hit", t:"He did not disprove the northern tradition. He refused to look at it. Gilbert works through centuries of accumulated geography — Fracastoro’s Hyperborean magnetick mountains named outright, Olaus Magnus on ships built without iron nails, the whole celestial north — and disposes of all of it as the tales of men who “wander about blindly.” Those few names are a sliver of the evidence he passed over, evidence I spent nearly two years collecting for the Hyperborea project. Then he makes the return impossible: “There are poles in like manner in the earth, which our forefathers sought ever in the sky.” Within a century the four islands are gone from the maps. He is the man who killed Hyperborea.", s:"Documented: the quotations, the writers he dismisses, the disappearance from later maps. My take: the causal line between them, the scale of what he ignored, and that he killed Hyperborea.", mixed:true, plates:[{f:"darts/plates/mercator.jpg",c:"Mercator, Septentrionalium Terrarum descriptio — the four islands and the rock at the pole."}]}
     ]
   },
   {
@@ -231,8 +242,8 @@ const FIGURES = [
     tiers:[
       {n:"first hit", t:"Richard Bentley, 1662–1742, Royal Librarian from 1693, Master of Trinity College Cambridge from 1700 until his death.", s:"Documented."},
       {n:"second hit", t:"He established that a document’s own language can expose it as a forgery, and he decided which ancient texts were authentic. He was also the first Boyle Lecturer, in 1692, where he presented Newton’s physics as proof of an intelligent Creator.", s:"Documented."},
-      {n:"third hit", t:"The Dissertation upon the Epistles of Phalaris (1699) showed that letters credited to a 6th-century BC tyrant were written by a sophist of the 2nd century AD. Preparing that Boyle series he wrote to Newton, who replied that gravity acting at a distance through a vacuum was “so great an absurdity that I beleive no man who has in philosophical matters any competent faculty of thinking can ever fall into it.”", s:"Documented.", u:"https://newtonproject.ox.ac.uk/view/texts/xml/THEM00258"},
-      {n:"fourth hit", t:"Newton wrote more on alchemy than on physics, over a million words, and Keynes, who bought the private papers at auction in 1936, called him the last of the magicians. He told Bentley plainly that matter could not act on matter without “the mediation of something else which is not material.” Bentley went on to run the second edition of the Principia in 1713, where Roger Cotes’s preface asserts the exact doctrine Newton had rejected — gravity as an essential property of matter. The man who could expose a forgery from its vocabulary let that one through.", s:"Documented: the letters, the alchemical papers, the Keynes line, Bentley running the second edition, Cotes’s preface and its claim. Mine: what it adds up to.", mixed:true}
+      {n:"third hit", t:"The Dissertation upon the Epistles of Phalaris (1699) showed that letters credited to a 6th-century BC tyrant were written by a sophist of the 2nd century AD. Preparing that Boyle series he wrote to Newton, who replied on 25 February 1692/3: “That gravity should be innate inherent & essential to matter so that one body may act upon another at a distance through a vacuum without the mediation of any thing else by & through which their action or force may be conveyed from one to another is to me so great an absurdity that I beleive no man who has in philosophical matters any competent faculty of thinking can ever fall into it.”", s:"Documented.", u:"https://newtonproject.ox.ac.uk/view/texts/xml/THEM00258"},
+      {n:"fourth hit", t:"Newton wrote more on alchemy than on physics, over a million words, and Keynes, who bought the private papers at auction in 1936, called him the last of the magicians. He told Bentley plainly that matter could not act on matter without “the mediation of something else which is not material.” Bentley went on to run the second edition of the Principia in 1713, where Roger Cotes’s preface asserts the exact doctrine Newton had rejected — gravity as an essential property of matter. The man who could expose a forgery from its vocabulary let that one through. He is the man who killed alchemy and established modern science.", s:"Documented: the letters, the alchemical papers, the Keynes line, Bentley running the second edition, Cotes’s preface and its claim. My take: what it adds up to, and that Bentley killed alchemy and established modern science.", mixed:true, plates:[{f:"darts/plates/emblem.jpg",c:""},{f:"darts/plates/furnace.jpg",c:""},{f:"darts/plates/flask.jpg",c:"What the second edition wrote out of the record."}]}
     ]
   }
 ];
@@ -304,10 +315,19 @@ function throwDart(f, btn, x, y){
     settle: () => {
       const box = document.createElement("div");
       box.className = "tier";
+      let plates = '';
+      if (tier.plates) {
+        plates = '<span class="plates' + (tier.plates.length === 1 ? ' one' : '') + '">' + tier.plates.map(function(pl){
+          return '<a href="' + pl.f + '" target="_blank" rel="noopener">'
+               + '<img src="' + pl.f + '" alt="" loading="lazy"></a>';
+        }).join('') + '</span>';
+        const cap = tier.plates.map(function(pl){ return pl.c; }).filter(Boolean).join(' ');
+        if (cap) plates += '<span class="plate-cap">' + cap + '</span>';
+      }
       box.innerHTML = '<span class="n">' + tier.n + '</span><p>' + tier.t
         + '<span class="status' + (tier.mixed ? ' mixed' : '') + '">' + tier.s
         + (tier.u ? ' <a class="src" href="' + tier.u + '" target="_blank" rel="noopener">source</a>' : '')
-        + '</span></p>';
+        + '</span></p>' + plates;
       document.getElementById("r-" + f.id).appendChild(box);
       const c = document.getElementById("c-" + f.id);
       c.textContent = state[f.id] + " of " + f.tiers.length;
